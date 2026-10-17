@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1d6b45" />
+  <meta name="description" content="KisanDirect connects farmers directly with households and local buyers." />
+  <title>KisanDirect — From Farms to Families</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="announcement">
+    <span class="announcement-dot" aria-hidden="true"></span>
+    Fresh from local farms · Fair prices for farmers · Clear prices for buyers
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="KisanDirect home">
+      <span class="brand-mark" aria-hidden="true">KD</span>
+      <span class="brand-name">Kisan<span>Direct</span><small>FARM TO FAMILY</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#marketplace">Marketplace</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#impact">Our impact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="button button-light sell-trigger" type="button"><span aria-hidden="true">＋</span> Sell produce</button>
+      <button class="cart-button" id="open-cart" type="button" aria-label="Open shopping cart">
+        <span aria-hidden="true">▱</span><span class="cart-label">Cart</span><span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero section-wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> A fairer food chain starts here</div>
+        <h1>Good food.<br /><em>Fair prices.</em><br />No middle maze.</h1>
+        <p class="hero-description">Buy fresh produce directly from the people who grow it. Farmers earn more, families pay less, and every rupee has a clearer journey.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#marketplace">Explore fresh produce <span aria-hidden="true">↗</span></a>
+          <button class="button button-outline sell-trigger" type="button">I'm a farmer <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hero-proof">
+          <div class="avatar-stack" aria-hidden="true"><span>👩🏽‍🌾</span><span>👨🏾‍🌾</span><span>👩🏻‍🌾</span></div>
+          <div><strong>Growing together</strong><small>Built around local farmers and buyers</small></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of fresh produce from a farm">
+        <div class="art-sun"></div>
+        <div class="art-label label-top"><span class="label-icon">↗</span><span><strong>Fair farm prices</strong><small>More value stays with growers</small></span></div>
+        <div class="produce-scene">
+          <div class="leaf leaf-one"></div><div class="leaf leaf-two"></div><div class="leaf leaf-three"></div>
+          <div class="produce produce-tomato">🍅</div>
+          <div class="produce produce-corn">🌽</div>
+          <div class="produce produce-carrot">🥕</div>
+          <div class="produce produce-greens">🥬</div>
+          <div class="produce produce-pumpkin">🎃</div>
+          <div class="basket"></div>
+          <div class="basket-front"></div>
+        </div>
+        <div class="art-label label-bottom"><span class="label-icon">♡</span><span><strong>Fresh by nature</strong><small>Local harvest, closer to home</small></span></div>
+        <div class="art-stamp">GROWN<br />WITH CARE <span>✳</span></div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Marketplace benefits">
+      <div class="trust-item"><span class="trust-icon">🌱</span><div><strong>Direct from farmers</strong><small>Fewer unnecessary links</small></div></div>
+      <div class="trust-item"><span class="trust-icon">₹</span><div><strong>Transparent pricing</strong><small>Know what you pay for</small></div></div>
+      <div class="trust-item"><span class="trust-icon">🧺</span><div><strong>Local harvests</strong><small>Seasonal, fresh produce</small></div></div>
+      <div class="trust-item"><span class="trust-icon">🤝</span><div><strong>Better together</strong><small>Value shared more fairly</small></div></div>
+    </section>
+
+    <section class="market-section section-wrap" id="marketplace">
+      <div class="section-heading">
+        <div><div class="eyebrow"><span class="eyebrow-line"></span> The weekly harvest</div><h2>Fresh picks from <em>our farmers.</em></h2><p>Discover what's in season and shop directly from local growers.</p></div>
+        <div class="market-note"><span>✳</span> Freshness you can trace</div>
+      </div>
+
+      <div class="market-toolbar">
+        <div class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search vegetables, fruits, farmer…" aria-label="Search produce" /><kbd>↵</kbd></div>
+        <label class="sort-label" for="sort-select">Sort by <select id="sort-select"><option value="recommended">Recommended</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="name">Name: A–Z</option></select></label>
+      </div>
+      <div class="category-row" id="category-row" aria-label="Filter by category">
+        <button class="category-chip active" type="button" data-category="All">All produce <span>✳</span></button>
+        <button class="category-chip" type="button" data-category="Vegetables">🥬 Vegetables</button>
+        <button class="category-chip" type="button" data-category="Fruits">🍊 Fruits</button>
+        <button class="category-chip" type="button" data-category="Grains">🌾 Grains</button>
+        <button class="category-chip" type="button" data-category="Dairy">🥛 Dairy</button>
+      </div>
+      <div class="results-line"><span id="results-count">Showing all produce</span><span class="direct-badge"><span></span> Direct seller listings</span></div>
+      <div class="product-grid" id="product-grid" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state" hidden><div>🔎</div><h3>No produce found</h3><p>Try another search or choose a different category.</p><button class="button button-outline" id="reset-filters" type="button">Clear filters</button></div>
+      <div class="market-bottom"><span>Want to reach more local buyers?</span><button class="text-link sell-trigger" type="button">List your harvest <span>→</span></button></div>
+    </section>
+
+    <section class="how-section" id="how-it-works">
+      <div class="section-wrap">
+        <div class="center-heading"><div class="eyebrow"><span class="eyebrow-line"></span> Simple by design <span class="eyebrow-line"></span></div><h2>A shorter journey.<br /><em>A better deal for everyone.</em></h2><p>We make it easier for growers and buyers to find each other.</p></div>
+        <div class="steps-grid">
+          <article class="step-card"><span class="step-number">01</span><div class="step-illustration step-green">🌿</div><h3>Farmers list</h3><p>Growers share their harvest, available quantity, location, and price.</p><span class="step-caption">For the grower</span></article>
+          <article class="step-card"><span class="step-number">02</span><div class="step-illustration step-yellow">🧺</div><h3>Buyers discover</h3><p>Households and local buyers compare clear prices and browse nearby produce.</p><span class="step-caption">For the buyer</span></article>
+          <article class="step-card"><span class="step-number">03</span><div class="step-illustration step-peach">🤝</div><h3>Value stays local</h3><p>Direct connections help reduce avoidable markups and support local farms.</p><span class="step-caption">For the community</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-section section-wrap" id="impact">
+      <div class="impact-copy"><div class="eyebrow"><span class="eyebrow-line"></span> Why KisanDirect</div><h2>When farmers thrive,<br /><em>communities grow.</em></h2><p>Traditional supply chains can involve many intermediaries. KisanDirect is a prototype for making farm prices easier to compare and direct connections simpler to start.</p><button class="button button-primary sell-trigger" type="button">Join the marketplace <span>→</span></button></div>
+      <div class="impact-panel"><div class="impact-panel-top"><span>OUR SHARED PURPOSE</span><span class="impact-sun">✳</span></div><div class="impact-big">More value.<br /><em>Fewer barriers.</em></div><div class="impact-divider"></div><div class="impact-points"><div><span>01</span><p><strong>Price visibility</strong><small>Make listed prices easier to compare.</small></p></div><div><span>02</span><p><strong>Direct discovery</strong><small>Help buyers find the farmers behind their food.</small></p></div><div><span>03</span><p><strong>Local opportunity</strong><small>Give small growers another way to reach buyers.</small></p></div></div></div>
+    </section>
+
+    <section class="closing-cta"><div class="closing-inner"><div><span class="closing-kicker">A better harvest starts with a connection</span><h2>Let's make every<br /><em>connection count.</em></h2></div><button class="button button-cream sell-trigger" type="button">Start selling today <span>↗</span></button><span class="closing-leaf" aria-hidden="true">✳</span></div></section>
+  </main>
+
+  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">KD</span><span class="brand-name">Kisan<span>Direct</span><small>FARM TO FAMILY</small></span></a><p>Building a fairer path from farm to family.</p><span class="footer-demo">Hackathon demo · Sample listings and cart are stored in this browser.</span><a href="#home" class="back-top">Back to top ↑</a></footer>
+
+  <div class="modal-backdrop" id="sell-modal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="sell-title">
+      <div class="modal-header"><div><span class="modal-kicker">GROW WITH US</span><h2 id="sell-title">List your harvest</h2><p>Share your produce with buyers directly.</p></div><button class="icon-button close-modal" type="button" aria-label="Close form">×</button></div>
+      <form id="sell-form" class="sell-form">
+        <label>Produce name<input name="name" required maxlength="50" placeholder="e.g. Fresh tomatoes" /></label>
+        <div class="form-row"><label>Category<select name="category" required><option value="Vegetables">Vegetables</option><option value="Fruits">Fruits</option><option value="Grains">Grains</option><option value="Dairy">Dairy</option></select></label><label>Price per unit (₹)<input name="price" type="number" min="1" max="100000" step="0.5" required placeholder="e.g. 30" /></label></div>
+        <div class="form-row"><label>Unit<select name="unit"><option value="kg">kg</option><option value="piece">piece</option><option value="dozen">dozen</option><option value="litre">litre</option><option value="bag">bag</option></select></label><label>Available quantity<input name="quantity" type="number" min="1" max="100000" step="1" required placeholder="e.g. 25" /></label></div>
+        <label>Farmer / farm name<input name="farmer" required maxlength="60" placeholder="e.g. Rina's Family Farm" /></label>
+        <label>Location<input name="location" required maxlength="60" placeholder="Village, town or district" /></label>
+        <label>Short description <span class="optional">(optional)</span><textarea name="description" rows="2" maxlength="180" placeholder="Tell buyers about your harvest…"></textarea></label>
+        <div class="form-actions"><button class="button button-outline close-modal" type="button">Cancel</button><button class="button button-primary" type="submit">Publish listing <span>→</span></button></div>
+        <p class="form-footnote">Demo only: listings are saved in this browser, not sent to a server.</p>
+      </form>
+    </section>
+  </div>
+
+  <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-labelledby="cart-title" aria-hidden="true">
+    <div class="cart-header"><div><span class="modal-kicker">YOUR BASKET</span><h2 id="cart-title">Shopping cart <span id="cart-heading-count">(0)</span></h2></div><button class="icon-button" id="close-cart" type="button" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty"><div>🧺</div><h3>Your basket is waiting</h3><p>Add something fresh from the marketplace.</p><button class="button button-primary" id="continue-shopping" type="button">Explore produce</button></div>
+    <div class="cart-footer" id="cart-footer" hidden><div class="cart-total"><span>Estimated total</span><strong id="cart-total">₹0</strong></div><p>Demo checkout — no payment will be taken.</p><button class="button button-primary checkout-button" id="checkout-button" type="button">Place demo order <span>→</span></button><button class="clear-cart" id="clear-cart" type="button">Clear basket</button></div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
