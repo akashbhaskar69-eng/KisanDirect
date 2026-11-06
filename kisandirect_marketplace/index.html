@@ -27,6 +27,7 @@
     </nav>
     <div class="header-actions">
       <button class="button button-light sell-trigger" type="button"><span aria-hidden="true">＋</span> Sell produce</button>
+      <button class="button button-outline account-button" id="account-button" type="button">Sign in</button>
       <button class="cart-button" id="open-cart" type="button" aria-label="Open shopping cart">
         <span aria-hidden="true">▱</span><span class="cart-label">Cart</span><span class="cart-count" id="cart-count">0</span>
       </button>
@@ -54,11 +55,27 @@
         <div class="art-label label-top"><span class="label-icon">↗</span><span><strong>Fair farm prices</strong><small>More value stays with growers</small></span></div>
         <div class="produce-scene">
           <div class="leaf leaf-one"></div><div class="leaf leaf-two"></div><div class="leaf leaf-three"></div>
-          <div class="produce produce-tomato">🍅</div>
-          <div class="produce produce-corn">🌽</div>
-          <div class="produce produce-carrot">🥕</div>
-          <div class="produce produce-greens">🥬</div>
-          <div class="produce produce-pumpkin">🎃</div>
+                    
+          <div class="produce produce-tomato">
+            <span role="img" aria-label="Fresh tomato">🍅</span>
+          </div>
+
+          <div class="produce produce-corn">
+            <span role="img" aria-label="Fresh corn">🌽</span>
+          </div>
+
+          <div class="produce produce-carrot">
+            <span role="img" aria-label="Fresh carrot">🥕</span>
+          </div>
+
+          <div class="produce produce-greens">
+            <span role="img" aria-label="Fresh greens">🥬</span>
+          </div>
+
+          <div class="produce produce-pumpkin">
+            <span role="img" aria-label="Fresh pumpkin">🎃</span>
+          </div>
+
           <div class="basket"></div>
           <div class="basket-front"></div>
         </div>
@@ -116,7 +133,7 @@
     <section class="closing-cta"><div class="closing-inner"><div><span class="closing-kicker">A better harvest starts with a connection</span><h2>Let's make every<br /><em>connection count.</em></h2></div><button class="button button-cream sell-trigger" type="button">Start selling today <span>↗</span></button><span class="closing-leaf" aria-hidden="true">✳</span></div></section>
   </main>
 
-  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">KD</span><span class="brand-name">Kisan<span>Direct</span><small>FARM TO FAMILY</small></span></a><p>Building a fairer path from farm to family.</p><span class="footer-demo">Hackathon demo · Sample listings and cart are stored in this browser.</span><a href="#home" class="back-top">Back to top ↑</a></footer>
+  <footer class="site-footer"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true">KD</span><span class="brand-name">Kisan<span>Direct</span><small>FARM TO FAMILY</small></span></a><p>Building a fairer path from farm to family.</p><span class="footer-demo">Hackathon demo · Shared marketplace API · Demo payments only</span><a href="#home" class="back-top">Back to top ↑</a></footer>
 
   <div class="modal-backdrop" id="sell-modal" hidden>
     <section class="modal" role="dialog" aria-modal="true" aria-labelledby="sell-title">
@@ -125,11 +142,60 @@
         <label>Produce name<input name="name" required maxlength="50" placeholder="e.g. Fresh tomatoes" /></label>
         <div class="form-row"><label>Category<select name="category" required><option value="Vegetables">Vegetables</option><option value="Fruits">Fruits</option><option value="Grains">Grains</option><option value="Dairy">Dairy</option></select></label><label>Price per unit (₹)<input name="price" type="number" min="1" max="100000" step="0.5" required placeholder="e.g. 30" /></label></div>
         <div class="form-row"><label>Unit<select name="unit"><option value="kg">kg</option><option value="piece">piece</option><option value="dozen">dozen</option><option value="litre">litre</option><option value="bag">bag</option></select></label><label>Available quantity<input name="quantity" type="number" min="1" max="100000" step="1" required placeholder="e.g. 25" /></label></div>
-        <label>Farmer / farm name<input name="farmer" required maxlength="60" placeholder="e.g. Rina's Family Farm" /></label>
-        <label>Location<input name="location" required maxlength="60" placeholder="Village, town or district" /></label>
+        <div class="seller-profile-note">Your farm name and location will come from your signed-in farmer profile.</div>
+        <label>Product photo <span class="optional">(optional · JPG, PNG or WEBP · max 5 MB)</span><input name="image" type="file" accept="image/jpeg,image/png,image/webp" /></label>
         <label>Short description <span class="optional">(optional)</span><textarea name="description" rows="2" maxlength="180" placeholder="Tell buyers about your harvest…"></textarea></label>
         <div class="form-actions"><button class="button button-outline close-modal" type="button">Cancel</button><button class="button button-primary" type="submit">Publish listing <span>→</span></button></div>
-        <p class="form-footnote">Demo only: listings are saved in this browser, not sent to a server.</p>
+        <p class="form-footnote">Listings are published to the shared marketplace database when connected.</p>
+      </form>
+    </section>
+  </div>
+
+
+  <div class="modal-backdrop" id="account-modal" hidden>
+    <section class="modal account-modal" role="dialog" aria-modal="true" aria-labelledby="account-title">
+      <div class="modal-header">
+        <div><span class="modal-kicker">KISANDIRECT ACCOUNT</span><h2 id="account-title">Welcome</h2><p id="account-subtitle">Sign in or create a free marketplace account.</p></div>
+        <button class="icon-button" id="close-account" type="button" aria-label="Close account">×</button>
+      </div>
+      <div id="auth-forms">
+        <div class="auth-switch" role="group" aria-label="Account action">
+          <button class="auth-mode active" type="button" data-auth-mode="login">Sign in</button>
+          <button class="auth-mode" type="button" data-auth-mode="register">Create account</button>
+        </div>
+        <form id="auth-form" class="sell-form">
+          <div id="register-fields" hidden>
+            <label>Full name<input name="name" maxlength="80" placeholder="Your name" /></label>
+            <label>Account type<select name="role" id="account-role"><option value="buyer">Buyer</option><option value="farmer">Farmer / Seller</option></select></label>
+            <div id="farmer-fields" hidden>
+              <label>Farm name<input name="farmName" maxlength="80" placeholder="Your farm or producer group" /></label>
+              <label>Farm location<input name="location" maxlength="100" placeholder="Village, town or district" /></label>
+            </div>
+            <label>Phone <span class="optional">(optional)</span><input name="phone" maxlength="20" placeholder="Mobile number" /></label>
+          </div>
+          <label>Email address<input name="email" type="email" required autocomplete="email" placeholder="you@example.com" /></label>
+          <label>Password<input name="password" type="password" required minlength="8" maxlength="72" autocomplete="current-password" placeholder="At least 8 characters" /></label>
+          <label id="confirm-password-label" hidden>Confirm password<input name="confirmPassword" type="password" minlength="8" maxlength="72" placeholder="Enter password again" /></label>
+          <button class="button button-primary" id="auth-submit" type="submit">Sign in</button>
+          <p class="form-footnote">Demo project: use a unique password. Never reuse your email password.</p>
+        </form>
+      </div>
+      <div id="account-panel" hidden>
+        <div class="signed-in-card"><span class="signed-in-mark">✓</span><div><strong id="signed-in-name"></strong><small id="signed-in-meta"></small></div></div>
+        <div class="account-actions"><button class="button button-outline" id="my-orders-button" type="button">My orders</button><button class="button button-primary" id="logout-button" type="button">Sign out</button></div>
+        <div id="my-orders-list" class="my-orders-list"></div>
+      </div>
+      <p class="account-message" id="account-message" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="checkout-modal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <div class="modal-header"><div><span class="modal-kicker">DEMO CHECKOUT</span><h2 id="checkout-title">Confirm your order</h2><p>No real payment or money transfer will happen.</p></div><button class="icon-button" id="close-checkout" type="button" aria-label="Close checkout">×</button></div>
+      <form id="checkout-form" class="sell-form">
+        <label>Delivery address<textarea name="deliveryAddress" rows="3" minlength="8" maxlength="500" required placeholder="House / street, area, city, PIN code"></textarea></label>
+        <div class="demo-payment-note"><strong>Demo payment only</strong><span>This creates a simulated order record. No UPI PIN, card number or payment details are collected.</span></div>
+        <div class="form-actions"><button class="button button-outline" id="cancel-checkout" type="button">Cancel</button><button class="button button-primary" type="submit">Confirm demo order →</button></div>
       </form>
     </section>
   </div>
